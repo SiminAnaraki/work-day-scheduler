@@ -9,20 +9,19 @@ function suffixe(d) {
     }
   };
 var time = dayjs().format("dddd, MMMM DD")
-
+$("#currentDay").text(time +suffixe(today));
 var hour = dayjs().format("H")
 console.log(hour)
-for(var i=9 ;i<18;i++){
-    var saj = $(`#${i}`).attr("id")
+$(".row").each(function(){
+    var saj = $(this).children("textarea").attr("id")
     console.log(saj)
-   if(saj===hour){$(`#${i}`).addClass("present")}
-    else if(saj<hour){$(`#${i}`).addClass("past")}
-    else {$(`#${i}`).addClass("future")}
+   if(saj===hour){$(this).children("textarea").addClass("present")}
+    else if(saj<hour){$(this).children("textarea").addClass("past")}
+    else {$(this).children("textarea").addClass("future")}
 
-   }
+   })
 
-$("#currentDay").text(time +suffixe(today));
-$("#9").val(localStorage.getItem("9"))
+$("#09").val(localStorage.getItem("09"))
 $("#10").val(localStorage.getItem("10"))
 $("#11").val(localStorage.getItem("11"))
 $("#12").val(localStorage.getItem("12"))
@@ -31,9 +30,6 @@ $("#14").val(localStorage.getItem("14"))
 $("#15").val(localStorage.getItem("15"))
 $("#16").val(localStorage.getItem("16"))
 $("#17").val(localStorage.getItem("17"))
-
-
-
 
 
 $(".row").on("click",".saveBtn",save)
