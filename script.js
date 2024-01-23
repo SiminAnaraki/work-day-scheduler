@@ -32,15 +32,19 @@ $("#16").val(localStorage.getItem("16"))
 $("#17").val(localStorage.getItem("17"))
 
 
-$(".row").on("click",".saveBtn",save)
+$(".row").on("click",".saveBtn, .saveBtn i",save)
+
 function save(event){
-    var tar = $(event.target)
-    var newTask = tar.siblings('textarea').val().trim()
-    console.log(newTask)
+    event.preventDefault();
+    if ($(event.target).hasClass("saveBtn") || $(event.target).parent().hasClass("saveBtn")) {
+    var newTask = $(event.target).siblings('textarea').val()
     whenToDo =$(event.target).siblings('textarea').attr("id")
-    console.log(whenToDo)
     localStorage.setItem(whenToDo,newTask)
-}
+    $("#message").removeClass("d-none")
+}}
+$(".saveBtn").on("mouseleave",function(){
+    $("#message").delay(1000).addClass("d-none")
+})
 
    
     
