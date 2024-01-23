@@ -1,3 +1,4 @@
+//get the current day of the month using the dayjs library
 var today = dayjs().format("D")
 function suffixe(d) {
     if (d > 3 && d < 21) return 'th';
@@ -8,19 +9,23 @@ function suffixe(d) {
       default: return "th";
     }
   };
+
+//format the current date and display it  
 var time = dayjs().format("dddd, MMMM DD")
 $("#currentDay").text(time +suffixe(today));
+
+//get the current hour in 24-hour format
 var hour = dayjs().format("H")
-console.log(hour)
+
+//iterate over each row for adding proper bg-color based on dayjs()
 $(".row").each(function(){
-    var saj = $(this).children("textarea").attr("id")
-    console.log(saj)
-   if(saj===hour){$(this).children("textarea").addClass("present")}
-    else if(saj<hour){$(this).children("textarea").addClass("past")}
-    else {$(this).children("textarea").addClass("future")}
+    var taksTime= $(this).children("textarea").attr("id")
+    if(taksTime===hour){$(this).children("textarea").addClass("present")}
+      else if(taksTime<hour){$(this).children("textarea").addClass("past")}
+      else {$(this).children("textarea").addClass("future")}
+    })
 
-   })
-
+//set values for each textarea from localStorage
 $("#09").val(localStorage.getItem("09"))
 $("#10").val(localStorage.getItem("10"))
 $("#11").val(localStorage.getItem("11"))
@@ -31,14 +36,15 @@ $("#15").val(localStorage.getItem("15"))
 $("#16").val(localStorage.getItem("16"))
 $("#17").val(localStorage.getItem("17"))
 
-
-$(".row").on("click",".saveBtn",save)
-
+//event handler for the click event on ".saveBtn"
+$(".saveBtn").on("click",save)
 function save(event){
     event.preventDefault();
-    var newTask = $(event.target).siblings('textarea').val()
-    whenToDo =$(event.target).siblings('textarea').attr("id")
+    var newTask = $(this).siblings('textarea').val()
+    whenToDo =$(this).siblings('textarea').attr("id")
     localStorage.setItem(whenToDo,newTask)
+
+    //display the message if the new task is not empty
     if (newTask){
     $("#message").delay(300).fadeIn()
     $("#message").delay(1500).fadeOut()
